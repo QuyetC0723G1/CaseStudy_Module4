@@ -16,4 +16,6 @@ public class ProductImages {
     private String image;
     @Column(columnDefinition = "tinyint default 0")
     private boolean deleteFlag;
+    @ManyToOne
+    private Product product;
 }
