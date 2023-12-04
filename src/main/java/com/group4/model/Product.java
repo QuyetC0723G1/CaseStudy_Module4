@@ -24,8 +24,7 @@ public class Product {
     private String manufacture;
     @Column(columnDefinition = "tinyint default 0")
     private boolean deleteFlag;
-    @OneToMany
-    private Collection<ProductImages> images;
+
     @ManyToOne
     private Category category;
 
