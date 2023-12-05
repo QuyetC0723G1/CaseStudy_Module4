@@ -7,6 +7,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/products")
@@ -63,7 +64,15 @@ public class ProductController {
         return new ResponseEntity<>(products,HttpStatus.OK);
     }
 
+    @GetMapping("/search/{id}")
+    public ResponseEntity<Optional<Product>> searchById(@PathVariable Long id){
+        Optional<Product> product = productService.findOneById(id);
+        if (product.isEmpty()){
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        }
+        return new ResponseEntity<>(product,HttpStatus.OK);
 
+    }
 
 
 }
