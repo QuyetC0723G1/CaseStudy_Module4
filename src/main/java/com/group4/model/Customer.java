@@ -20,7 +20,7 @@ public class Customer {
     private Long id;
     private String fullName;
     private LocalDate birthDay;
-    private String Address;
+    private String address;
     private String phoneNumber;
     private String email;
     @OneToOne
