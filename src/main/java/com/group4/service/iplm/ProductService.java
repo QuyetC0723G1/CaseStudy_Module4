@@ -42,4 +42,9 @@ public class ProductService implements IProductService {
     public Iterable<Product> findALlByCategoryId(List<Long> categoriesId) {
         return productRepository.findAllByCategoryIdIn(categoriesId);
     }
+
+    @Override
+    public Iterable<Product> findAllByIdIn(List<Long> ids) {
+        return productRepository.findAllByIdIn(ids);
+    }
 }
