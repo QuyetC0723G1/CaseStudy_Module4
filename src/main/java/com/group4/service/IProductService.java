@@ -7,4 +7,5 @@ import java.util.List;
 public interface IProductService extends IGenerateService<Product> {
     Iterable<Product> findByName(String name);
     Iterable<Product> findALlByCategoryId(List<Long> categoriesId);
+    Iterable<Product> findAllByIdIn(List<Long> ids);
 }
