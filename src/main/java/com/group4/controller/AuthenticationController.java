@@ -66,12 +66,10 @@ public class AuthenticationController {
         Iterable<User> users = userService.findAll();
         for (User currentUser : users) {
             if (currentUser.getUsername().equals(user.getUsername())) {
-                System.out.println("2");
                 return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
             }
         }
         if (!userService.isCorrectConfirmPassword(user)) {
-            System.out.println("3");
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
         Role roleUser= roleService.findByName("ROLE_USER");
@@ -81,11 +79,9 @@ public class AuthenticationController {
            user.setRoles(roles);
        }
         if( customerService.emailIsUse(customer.getEmail())){
-            System.out.println("4");
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
         if (customerService.phoneIsUse(customer.getPhoneNumber())){
-            System.out.println("5");
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
         user.setPassword(passwordEncoder.encode(user.getPassword()));
@@ -105,11 +101,6 @@ public class AuthenticationController {
         User currentUser = userService.findByUsername(user.getUsername());
         Customer customer = customerService.findCustomerByUserId(currentUser.getId()).get();
         return ResponseEntity.ok(new JwtResponse(jwt, currentUser.getId(), userDetails.getUsername(),customer.getFullName(), userDetails.getAuthorities()));
-    }
-
-    @GetMapping("/hello")
-    public ResponseEntity<String> hello() {
-        return new ResponseEntity("Hello World", HttpStatus.OK);
     }
 
     @GetMapping("/users/{id}")
@@ -138,4 +129,5 @@ public class AuthenticationController {
         Optional<Customer> customer = customerService.findOneById(id);
         return customer.map(value -> new ResponseEntity<>(value, HttpStatus.OK)).orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
+
 }
