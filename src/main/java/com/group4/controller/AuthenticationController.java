@@ -1,12 +1,14 @@
 package com.group4.controller;
 
 import com.group4.model.Customer;
+import com.group4.model.Order;
 import com.group4.model.login.JwtResponse;
 import com.group4.model.login.Role;
 import com.group4.model.login.User;
 import com.group4.service.UserService;
 import com.group4.service.iplm.CustomerService;
 import com.group4.service.iplm.JwtService;
+import com.group4.service.iplm.OrderService;
 import com.group4.service.iplm.RoleService;
 import net.sf.jsqlparser.statement.create.table.CreateTable;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -45,6 +47,8 @@ public class AuthenticationController {
     @Autowired
     private CustomerService customerService;
 
+    @Autowired
+    private OrderService orderService;
 
     @GetMapping("/admin/users")
     public ResponseEntity<Iterable<User>> showAllUserByAdmin() {
@@ -156,5 +160,11 @@ public class AuthenticationController {
             return new ResponseEntity<>(HttpStatus.OK);
         }
         return new ResponseEntity<>("error user not found", HttpStatus.NOT_FOUND);
+    }
+    @GetMapping("/users/{id}/orders")
+    public ResponseEntity<Iterable<Order>> getOrdersOfUser(@PathVariable Long id) {
+        Customer customer = customerService.findCustomerByUserId(id).get();
+        Iterable<Order> orders = orderService.findAllByCustomerId(customer.getId());
+        return new ResponseEntity<>(orders,HttpStatus.OK);
     }
 }

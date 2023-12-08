@@ -77,9 +77,15 @@ public class SecurityConfig {
         return http.csrf(AbstractHttpConfigurer::disable)
                 .addFilterBefore(jwtAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class)
                 .authorizeHttpRequests(auth -> auth
-                                .requestMatchers("/login", "/register", "/hello").permitAll()
-                                .requestMatchers("/users/**","/customers/**","/change-password").hasAnyAuthority("ROLE_USER")
-                                .requestMatchers("/admin/**").hasAnyAuthority("ROLE_ADMIN")
+                                .requestMatchers("/login", "/register", "/products","/products/search"
+                                        ,"/products/searchByCategory","/products/search/{id}",
+                                        "/products/searchByCateForUser","/products/showAll","/cart",
+                                        "/categories","/product_images/search/{id}","/product_images").permitAll()
+                                .requestMatchers("/users/**","/customers/**","/change-password",
+                                        "/order/**").hasAnyAuthority("ROLE_USER")
+                                .requestMatchers("/admin/**","/products/create","/products/delete/{id}"
+                                        ,"/products/update/{id}","/categories/create",
+                                        "/product_images/**").hasAnyAuthority("ROLE_ADMIN")
 //                        .requestMatchers(HttpMethod.GET).hasAnyRole("hasRole('ROLE_USER') or hasRole('ROLE_ADMIN')")
 //                        .requestMatchers(HttpMethod.DELETE, "/categories",
 //                                "/typeOfQuestions",

@@ -12,4 +12,5 @@ import java.util.List;
 public class OrderRequest {
     private double total;
     private List<OrderItem> data;
+    private Long userId;
 }
