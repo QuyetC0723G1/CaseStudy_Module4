@@ -12,7 +12,6 @@ import java.util.Optional;
 public class CustomerService implements ICustomerService {
     @Autowired
     private CustomerRepository customerRepository;
-
     @Override
     public Iterable<Customer> findAll() {
         return customerRepository.findAll();
