@@ -7,13 +7,15 @@ import java.util.Collection;
 public class JwtResponse {
     private Long id;
     private String token;
+    private String fullName;
     private String type = "Bearer";
     private String username;
     private Collection<? extends GrantedAuthority> roles;
 
-    public JwtResponse(String accessToken, Long id, String username, Collection<? extends GrantedAuthority> roles) {
+    public JwtResponse(String accessToken, Long id, String username, String fullName, Collection<? extends GrantedAuthority> roles) {
         this.token = accessToken;
         this.username = username;
+        this.fullName=fullName;
         this.roles = roles;
         this.id = id;
     }
@@ -48,6 +50,14 @@ public class JwtResponse {
 
     public void setUsername(String username) {
         this.username = username;
+    }
+
+    public String getFullName() {
+        return fullName;
+    }
+
+    public void setFullName(String fullName) {
+        this.fullName = fullName;
     }
 
     public Collection<? extends GrantedAuthority> getRoles() {
