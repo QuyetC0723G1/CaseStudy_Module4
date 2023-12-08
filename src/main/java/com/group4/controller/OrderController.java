@@ -38,7 +38,7 @@ public class OrderController {
     public ResponseEntity<Order> save(@RequestBody OrderRequest request){
         Order order = new Order();
         order.setOrderTime(LocalDateTime.now());
-        order.setCustomer(customerService.findOneById(1L).get());
+        order.setCustomer(customerService.findCustomerByUserId(request.getUserId()).get());
         order.setTotalMoney(request.getTotal());
         order.setStatus(0);
         orderService.save(order);
